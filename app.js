@@ -20,7 +20,7 @@ pathname = window.location.pathname.replace(indexRegex, '')
 
 if ("serviceWorker" in navigator) {
   // ### Register a service worker
-  navigator.serviceWorker.register(window.location.origin + pathname + 'webpage-server.js', { 
+  navigator.serviceWorker.register(window.location.origin + pathname + 'browser-server.js', { 
     type: 'module',
     scope: window.location.origin + window.location.pathname
   })

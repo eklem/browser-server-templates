@@ -1,5 +1,5 @@
-# browser-worker-server
-JavaScript service worker as a server for your webpage/web application. Example library on how it can be done and how to use the different moving parts.
+# browser-server-templates
+JavaScript service worker as a server for your webpage/web application, living in your browser. Example library on how it can be done and how to use the different moving parts.
 
 **Advantages:**
 
@@ -11,7 +11,7 @@ JavaScript service worker as a server for your webpage/web application. Example 
 6. Only static files, can be hosted cheap, also GitHub pages
 
 
-**[browser-worker-server example](https://eklem.github.io/browser-worker-server/)**
+**[browser-server example](https://eklem.github.io/browser-server/)**
 
 ## Files and their function
 
@@ -21,7 +21,7 @@ THe HTML for your web app. Static file (All files are static).
 
 ### app.js
 
-Frontend code and initiator of the browser-worker-server (a service worker). Communicates with the service worker by:
+Frontend code and initiator of the browser-server (a service worker). Communicates with the service worker by:
 
 **Request:**
 
@@ -34,17 +34,17 @@ fetch(./API?command={someDataObject})
 {<JSON object>}
 ```
 
-### browser-worker-server.js
+### browser-server.js
 
 A service worker that intercepts requests to an `API`-file. Then extracts the command and JSON from the URL, do stuff with it and return some JSON to the frontend.
 
 A switch statement with a case for each command extracted from the URL.
 
-For tasks taking a long time, the browser-worker-server will use postMessage over a broadcastChannel to message the app.js about progress. 
+For tasks taking a long time, the browser-server will use postMessage over a broadcastChannel to message the app.js about progress. 
 
 ### API
 
-Actually not needed, not even an empty file. If you request this file with a fetch(), the browser-worker-server.js will intercept the request and return a response as if it comes from the non-existing API-file.
+Actually not needed, not even an empty file. If you request this file with a fetch(), the browser-server.js will intercept the request and return a response as if it comes from the non-existing API-file.
 
 ### manifest.json
 
@@ -52,7 +52,7 @@ Manifest file. Main function is to make the web app installable on desktops and 
 
 ### mat-lib.js
 
-Just an example code library. This will be the main library you want do do some heavy lifting with. Import in `browser-worker-server.js` and call the functions you need when you get a command and data from the frontend.
+Just an example code library. This will be the main library you want do do some heavy lifting with. Import in `browser-server.js` and call the functions you need when you get a command and data from the frontend.
 
 
 ## Old stuff, reformatting needed

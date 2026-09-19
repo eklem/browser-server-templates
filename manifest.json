@@ -1,7 +1,7 @@
 {
-  "short_name": "webpage-server",
-  "name": "webpage-server",
-  "description": "JavaScript service worker as a server for your webpage",
+  "short_name": "browser-server",
+  "name": "browser-server",
+  "description": "JavaScript service worker as a server for your webpage, living in your browser",
   "start_url": "./index.html",
   "background_color": "#ffffff",
   "display": "fullscreen",

@@ -1,7 +1,7 @@
 {
-  "name": "worker-server",
+  "name": "browser-server-templates",
   "version": "0.1.0",
-  "description": "JavaScript service worker as a server. Example library on how it can be done.",
+  "description": "JavaScript service worker as a server for your webpage, living in your browser.",
   "keywords": [
     "JavaScript",
     "browser",
