@@ -1,4 +1,5 @@
-import { add, subtract, multiply, divide } from './math-lib.js'
+import { entries, set } from './idb-keyval.js'
+import { add, subtract, multiply, divide } from './search-index.js'
 
 /* ### ################################################################# ### */
 /* ### BroadcastChannel init + event listener                            ### */
@@ -40,6 +41,12 @@ const regexUrl = function (url) {
 self.addEventListener('fetch', function (event) {
   let responseJson
   if (decodeURI(event.request.url).includes('API')) {
+    // ### for each math function call a history function that:
+    // ### A: Generates a UUID
+    // ### B: sets the new math to idb-keyval
+    // ### C: get all entries
+    // ### D: postMessage to all clients
+    const uuid = self.crypto.randomUUID()
     let urlParts = regexUrl(decodeURI(event.request.url))
     switch (urlParts.query) {
       case 'add':

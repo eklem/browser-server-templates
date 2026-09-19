@@ -18,22 +18,21 @@ self.addEventListener("activate", (event) => {
 
 // ### Url parts extraction                                              ### */
 const regexUrl = function (url) {
+  console.log('### ### url: ' + url)
   let urlParts = {
     query: null,
     json: null
   }
 
-  const queryRegex = /(?<=\/API\?).*(?=={)/
-  const jsonRegex = /{.*}$/
-  
-  urlParts.query = queryRegex.exec(url)
-  urlParts.query = urlParts.query[0]
-  urlParts.json = jsonRegex.exec(url)
-  urlParts.json = urlParts.json[0]
+  urlParts.query = (/(?<=\/API\?).*(?=={)/.exec(url))[0]
+  urlParts.json = (/{.*}$/.exec(url))[0]
+
+  console.log('### ### query: ' + urlParts.query + '\n### ### json: ' + urlParts.json)
+
   if (urlParts.json !== 'object') { 
     urlParts.json = JSON.parse(urlParts.json)
   }
-  
+
   return urlParts
 }
 

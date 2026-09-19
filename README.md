@@ -7,11 +7,14 @@ JavaScript service worker as a server for your webpage/web application, living i
 2. Extra thread for heavy lifting
 3. Notifications at your hand (when the heavy lifting is done?)
 4. Easy to create a server template others can use quickly for their projects
-5. Easy to maintain, browser updates take care of most stuff
+5. Easy to maintain, browser updates take care of most stuff. San
 6. Only static files, can be hosted cheap, also GitHub pages
 
 
-**[browser-server example](https://eklem.github.io/browser-server/)**
+### browser-server examples
+
+1. [Calculator](https://eklem.github.io/browser-server-templates/examples/01-calculator/)
+2. [Search engine](https://eklem.github.io/browser-server-templates/examples/02-search-engine/)
 
 ## Files and their function
 
@@ -55,27 +58,14 @@ Manifest file. Main function is to make the web app installable on desktops and 
 Just an example code library. This will be the main library you want do do some heavy lifting with. Import in `browser-server.js` and call the functions you need when you get a command and data from the frontend.
 
 
-## Old stuff, reformatting needed
+## Development setup
 
-```javascript
-fetch(.someFileInScope?message={messageObjetc})
+```console
+cd browser-server-templates
+npm install
+npm run build
+npx serve
 ```
-
-And a listener in the service-worker triggered by this fetch:
-
-```javascript
-self.addEventListener('fetch', function (event) {
-  if (url.includes('someFileInScope')) {
-    // act on message sent from frontend app.
-  }
-})
-```
-
- **service-worker -> app:**
- ```javascript
-const broadcast = new BroadcastChannel('sw_app_serviceworker)
-broadcast.postMessage({messageObject})
- ```
 
 ## WIP
 
