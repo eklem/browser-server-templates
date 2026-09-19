@@ -1,5 +1,8 @@
-import { entries, set } from './idb-keyval.js'
-import { add, subtract, multiply, divide } from './search-index.js'
+// import { entries, set } from './idb-keyval.js'
+import { SearchIndex } from './search-index.js'
+
+const { PUT, DICTIONARY, DOCUMENT_COUNT } = new SearchIndex()
+
 
 /* ### ################################################################# ### */
 /* ### BroadcastChannel init + event listener                            ### */
@@ -23,13 +26,9 @@ const regexUrl = function (url) {
     json: null
   }
 
-  const queryRegex = /(?<=\/API\?).*(?=={)/
-  const jsonRegex = /{.*}$/
+  urlParts.query = (/(?<=\/API\?).*(?=={)/.exec(url))[0]
+  urlParts.json = (/{.*}$/.exec(url))[0]
   
-  urlParts.query = queryRegex.exec(url)
-  urlParts.query = urlParts.query[0]
-  urlParts.json = jsonRegex.exec(url)
-  urlParts.json = urlParts.json[0]
   if (urlParts.json !== 'object') { 
     urlParts.json = JSON.parse(urlParts.json)
   }
@@ -49,17 +48,16 @@ self.addEventListener('fetch', function (event) {
     const uuid = self.crypto.randomUUID()
     let urlParts = regexUrl(decodeURI(event.request.url))
     switch (urlParts.query) {
-      case 'add':
-        responseJson = add(urlParts.json.num1, urlParts.json.num2)
+      case 'DICTIONARY':
+        responseJson = {}// search-index DICTIONARY-stuff 
+        // howto typeahead: https://github.com/fergiemcdowall/search-index/blob/master/docs/FAQ.md#how-do-i-make-a-simple-typeahead--autosuggest--matcher
+        // howto async/await: https://stackoverflow.com/questions/49938266/how-to-return-values-from-async-functions-using-async-await-from-function
         break
-      case 'subtract':
-        responseJson = subtract(urlParts.json.num1, urlParts.json.num2)
+      case 'DOCUMENT_COUNT':
+        responseJson = {}// search-index DOCUMENT_COUNT-stuff 
         break
-      case 'multiply':
-        responseJson = multiply(urlParts.json.num1, urlParts.json.num2)
-        break
-      case 'divide':
-        responseJson = divide(urlParts.json.num1, urlParts.json.num2)
+      case 'PUT':
+        responseJson = {}// search-index PUT-stuff
         break
       default:
         // error-message into an object and returing it. To make an error-chekc in the frontend
