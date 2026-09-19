@@ -21,6 +21,10 @@
   "type": "module",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cp ./node_modules/idb-keyval/dist/index.js ./examples/01-calculator/idb-keyval.js && cp ./node_modules/idb-keyval/dist/index.js ./examples/02-search-engine/idb-keyval.js"
+  },
+  "dependencies": {
+    "idb-keyval": "^6.3.0"
   }
 }

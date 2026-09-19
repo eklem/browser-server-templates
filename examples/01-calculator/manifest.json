@@ -1,0 +1,22 @@
+{
+  "short_name": "webpage-server",
+  "name": "webpage-server",
+  "description": "JavaScript service worker as a server for your webpage",
+  "start_url": "./index.html",
+  "background_color": "#ffffff",
+  "display": "fullscreen",
+  "scope": "https://eklem.github.io/webpage-server/examples/01-calculator/",
+  "icons": [
+    {
+      "src": "./img/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./img/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "theme_color": "#000000"
+}
