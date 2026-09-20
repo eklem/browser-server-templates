@@ -6,22 +6,22 @@ const indexRegex = /index\.html/
 let pathname = ''
 pathname = window.location.pathname.replace(indexRegex, '')
 
-if ("serviceWorker" in navigator) {
+if ('serviceWorker' in navigator) {
   // ### Register a service worker
   navigator.serviceWorker.register(window.location.origin + pathname + 'browser-server.js', {
     type: 'module',
     scope: window.location.origin + window.location.pathname
   })
-  .then (
-    (registration) => {
-      console.log("Service worker registration succeeded:", registration)
-    },
-    (error) => {
-      console.error(`Service worker registration failed: ${error}`)
-    },
-  )
+    .then(
+      (registration) => {
+        console.log('Service worker registration succeeded:', registration)
+      },
+      (error) => {
+        console.error(`Service worker registration failed: ${error}`)
+      }
+    )
 } else {
-  console.error("Service workers are not supported.")
+  console.error('Service workers are not supported.')
 }
 
 /* ### ################################################################# ### */
@@ -35,19 +35,10 @@ const broadcastChannel = new BroadcastChannel('workerserver_app')
 const populateResult = function (nodeObject) {
   const result = document.getElementById('result')
   const p = document.createElement('p')
-  p.setAttribute('id', 'result');
+  p.setAttribute('id', 'result')
   const pContent = document.createTextNode(nodeObject.mathProblem + nodeObject.answer)
   p.appendChild(pContent)
   result.replaceWith(p)
-}
-
-const populateHistory = function (nodeObject) {
-  const history = document.getElementById('history')
-  const p = document.createElement('p')
-  p.setAttribute('id', 'result');
-  const pContent = document.createTextNode(nodeObject.mathProblem + nodeObject.answer)
-  p.appendChild(pContent)
-  history.replaceWith(p)
 }
 
 /* ### ################################################################# ### */
@@ -57,13 +48,27 @@ const populateHistory = function (nodeObject) {
 
 // A: Make the object, B: populate it, C: stringify it when fetching
 
-const calculateButton = document.getElementById('calculate')
+const indexButton = document.getElementById('index')
 
-calculateButton.addEventListener('click', (event) => {
-  const arithmeticSymbol = document.getElementById('arithmeticSymbol').value  
-  const num1 = Number(document.getElementById('num1').value)
-  const num2 = Number(document.getElementById('num2').value)
-  const fetchPromise = fetch(encodeURI(window.location.origin + pathname + 'API?' + arithmeticSymbol + '={"num1":' + num1 + ',"num2":' + num2 + '}'))
+indexButton.addEventListener('click', (event) => {
+  const url = document.getElementById('url').value
+  const fetchPromise = fetch(encodeURI(window.location.origin + pathname + 'API?' + 'PUT' + '={"url": "' + url + '"}'))
+  fetchPromise
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+      populateResult(data)
+    })
+    .catch((error) => {
+      console.error(`onRejected function called: ${error.message}`)
+    })
+})
+
+const documentButton = document.getElementById('documents')
+
+documentButton.addEventListener('click', (event) => {
+  const fetchPromise = fetch(encodeURI(window.location.origin + pathname + 'API?' + 'DOCUMENT_COUNT' + '={}'))
   fetchPromise
     .then((response) => {
       return response.json()

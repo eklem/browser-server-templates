@@ -5,7 +5,7 @@
   "start_url": "./index.html",
   "background_color": "#ffffff",
   "display": "fullscreen",
-  "scope": "https://eklem.github.io/webpage-server/examples/01-calculator/",
+  "scope": "https://eklem.github.io/webpage-server/examples/02-search-engine/",
   "icons": [
     {
       "src": "./img/icon-192x192.png",
