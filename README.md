@@ -1,5 +1,5 @@
 # browser-server-templates
-JavaScript service worker as a server for your webpage/web application, living in your browser. Example library on how it can be done and how to use the different moving parts.
+JavaScript service worker as a server for your webpage/web application, living in your browser. Example library on how it can be done and how to use the different moving parts at hand.
 
 **Advantages:**
 
