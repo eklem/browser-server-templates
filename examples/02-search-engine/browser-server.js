@@ -42,13 +42,12 @@ const regexUrl = function (url) {
 /* ### ################################################################# ### */
 /* ### search-index functions                                            ### */
 
-async function putJson (json) {
-  const result = await PUT(json)
-  console.log('### ###JSON: ' + JSON.stringify(json))
-  return result
+async function _PUT (docs) {
+  const putResponse = await PUT(docs)
+  return putResponse
 }
 
-async function documentCount () {
+async function _DOCUMENT_COUNT () {
   const totalDocs = await DOCUMENT_COUNT()
   return totalDocs
 }
@@ -66,15 +65,16 @@ self.addEventListener('fetch', function (event) {
     switch (urlParts.query) {
       case 'PUT':
         (async () => {
-          const result = await putJson(cities)
+          const result = await _PUT(cities)
           console.log(result)
         })()
         responseJson = { response: 'Started putting data' } // search-index PUT-stuff
         break
       case 'DOCUMENT_COUNT':
         (async () => {
-          const docs = await documentCount()
-          console.log(docs)
+          const totDocs = await _DOCUMENT_COUNT()
+          console.log(totDocs)
+          // postMessage() 
         })()
         responseJson = { response: 'Some data indexed?' } // search-index DOCUMET_COUNT-stuff
         break

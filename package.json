@@ -22,9 +22,9 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build-calculator && npm run build-search-engine",
-    "build-calculator": "cp ./node_modules/idb-keyval/dist/index.js ./examples/01-calculator/idb-keyval.js",
-    "build-search-engine": "cp ./node_modules/cities.json/cities.json ./examples/02-search-engine/cities.json && cp ./node_modules/idb-keyval/dist/index.js ./examples/02-search-engine/idb-keyval.js && cp ./node_modules/search-index/dist/search-index-esm-*.js ./examples/02-search-engine/search-index.js"
+    "build": "npm run 01-calculator && npm run 02-search-engine",
+    "01-calculator": "cp ./node_modules/idb-keyval/dist/index.js ./examples/01-calculator/idb-keyval.js",
+    "02-search-engine": "cp ./node_modules/cities.json/cities.json ./examples/02-search-engine/cities.json && cp ./node_modules/idb-keyval/dist/index.js ./examples/02-search-engine/idb-keyval.js && cp ./node_modules/search-index/dist/search-index-esm-*.js ./examples/02-search-engine/search-index.js"
   },
   "dependencies": {
     "cities.json": "^1.1.61",
