@@ -68,7 +68,7 @@ indexButton.addEventListener('click', (event) => {
 const documentButton = document.getElementById('documents')
 
 documentButton.addEventListener('click', (event) => {
-  const fetchPromise = fetch(encodeURI(window.location.origin + pathname + 'API?' + 'DOCUMENT_COUNT' + '={}'))
+  const fetchPromise = fetch(encodeURI(window.location.origin + pathname + 'API?' + 'DOCUMENT_COUNT'))
   fetchPromise
     .then((response) => {
       return response.json()

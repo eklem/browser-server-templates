@@ -25,15 +25,20 @@ self.addEventListener('activate', (event) => {
 // ### Url parts extraction                                              ### */
 const regexUrl = function (url) {
   const urlParts = {
-    query: null,
-    json: null
+    command: null,
+    data: null
   }
 
-  urlParts.query = (/(?<=\/API\?).*(?=={)/.exec(url))[0]
-  urlParts.json = (/{.*}$/.exec(url))[0]
+  const commandRegex = /(?<=\/API\?)\w+(?=={)|(?<=\/API\?)\w+$/
+  const dataRegex =  /(?<==){.*}$/
 
-  if (urlParts.json !== 'object') {
-    urlParts.json = JSON.parse(urlParts.json)
+  urlParts.command = (commandRegex.exec(url))[0]
+  if (dataRegex.test(url)) {
+    urlParts.data = (dataRegex.exec(url))[0]
+  }
+
+  if (urlParts.data !== 'object') {
+    urlParts.data = JSON.parse(urlParts.data)
   }
 
   return urlParts
@@ -43,13 +48,11 @@ const regexUrl = function (url) {
 /* ### search-index functions                                            ### */
 
 async function _PUT (docs) {
-  const putResponse = await PUT(docs)
-  return putResponse
+  return await PUT(docs)
 }
 
 async function _DOCUMENT_COUNT () {
-  const totalDocs = await DOCUMENT_COUNT()
-  return totalDocs
+  return await DOCUMENT_COUNT()
 }
 
 // howto typeahead: https://github.com/fergiemcdowall/search-index/blob/master/docs/FAQ.md#how-do-i-make-a-simple-typeahead--autosuggest--matcher
@@ -62,7 +65,7 @@ self.addEventListener('fetch', function (event) {
   if (decodeURI(event.request.url).includes('API')) {
     const urlParts = regexUrl(decodeURI(event.request.url))
     console.log(JSON.stringify(urlParts))
-    switch (urlParts.query) {
+    switch (urlParts.command) {
       case 'PUT':
         (async () => {
           const result = await _PUT(cities)
